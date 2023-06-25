@@ -1,0 +1,2 @@
+backend link prevent me from access to data due to cors policies.
+use fontawsome in html page before start.
