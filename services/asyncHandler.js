@@ -1,0 +1,19 @@
+export const asynchandler = (fun) => {
+  return (req, res, next) => {
+    fun(req, res, next).catch((err) => {
+      next(new Error(err, { cause: 500 }));
+    });
+  };
+};
+
+export const globalerr = (err, req, res, next) => {
+  if (err) {
+    if (process.env.Mood === "DEV") {
+      res
+        .status(err["cause"] || 500)
+        .json({ message: err.message, stack: err.stack });
+    } else {
+      res.status(err["cause"] || 500).json({ message: err.message });
+    }
+  }
+};
